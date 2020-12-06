@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+#scheduleByWorker:
+#  path: /schedule-worker
+#  controller: App\Controller\Schedule::scheduleByWorker
+#  methods: GET
