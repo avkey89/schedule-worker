@@ -2,8 +2,7 @@ name: CheckTest
 
 on:
   push:
-    branches:
-      - 'test_branch'
+    branches: [ test_branch ]
 
 jobs:
   runtest:
