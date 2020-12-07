@@ -2,7 +2,8 @@ name: RunTest
 
 on:
   push:
-    branches: [ test_branch ]
+    branches:
+      - '*'
 
 jobs:
   runtest:
