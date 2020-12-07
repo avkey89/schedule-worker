@@ -1,0 +1,45 @@
+name: CheckTest
+
+on:
+  push:
+    branches:
+      - 'test_branch'
+
+jobs:
+  runtest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Composer install and run test
+        run: |
+          composer install --no-interaction --ansi --no-suggest \
+          php vendor/bin/phpunit
+
+  create_pull_request:
+     runs-on: ubuntu-latest
+     needs: [runtest]
+     
+     steps:
+      - uses: actions/checkout@v2
+        
+      - name: Create pull request
+        run: git status
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
