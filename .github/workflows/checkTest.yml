@@ -18,3 +18,9 @@ jobs:
         
       - name: Printing composer version
         run: composer
+
+      - name: Composer install
+        run: composer install --no-interaction --ansi --no-suggest
+
+      - name: Run test
+        run: php vendor/bin/phpunit
