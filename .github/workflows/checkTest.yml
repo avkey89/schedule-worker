@@ -13,5 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Run a one-line script
+      - name: Printing php version
         run: php --version
+        
+      - name: Printing composer version
+        run: composer
