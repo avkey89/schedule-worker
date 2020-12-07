@@ -1,0 +1,25 @@
+name: RunTest
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  runtest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge staging -> test_branch
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          target_branch: test_branch
+          github_token: ${{ github.token }}
+
+      - name: Composer install
+        run: composer install --no-interaction --ansi --no-suggest
+
+      - name: Run test
+        run: php vendor/bin/phpunit
