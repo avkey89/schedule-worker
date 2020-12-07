@@ -12,10 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Composer install and run test
-        run: |
-          composer install --no-interaction --ansi --no-suggest \
-          php vendor/bin/phpunit
+      - name: Composer install
+        run: composer install --no-interaction --ansi --no-suggest
+        
+      - name: Run test
+        run: php vendor/bin/phpunit
 
   create_pull_request:
      runs-on: ubuntu-latest
