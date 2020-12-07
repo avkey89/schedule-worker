@@ -30,7 +30,7 @@ class ScheduleCommandHandler
         $workDays = array_diff($period, $vacationPeriodDate);
         $workDays = array_diff($workDays, GoogleCalendar::getHoliday());
 
-        //$eventPeriods = $this->eventCompanyPeriod();
+        $eventPeriods = $this->eventCompanyPeriod();
 
         if (!empty($workDays)) {
             $schedule = [];
