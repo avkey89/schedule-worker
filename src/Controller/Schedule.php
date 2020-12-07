@@ -44,4 +44,35 @@ class Schedule extends AbstractController
 
         return $this->json($data, $status);
     }
+
+    /**
+     * @Route("/schedule-off-hour", name="schedule_off_hour", methods={"GET"})
+     */
+    public function scheduleOffHourByWorker(Request $request, ScheduleCommandHandler $scheduleCommandHandler, ValidatorInterface $validator): JsonResponse
+    {
+        $data = ["success"=>true];
+        $status = JsonResponse::HTTP_OK;
+        try {
+            $scheduleCommand = new ScheduleCommand((int)$request->query->get('userId'), $request->query->get('startDate'), $request->query->get('endDate'));
+            $errors = $validator->validate($scheduleCommand);
+            if (count($errors) > 0) {
+                $data["success"] = false;
+                foreach($errors as $error) {
+                    $data["error"][] = $error->getMessage();
+                }
+            } else {
+                $data["schedule"] = $scheduleCommandHandler->handler($scheduleCommand->userId, $scheduleCommand->startDate, $scheduleCommand->endDate, true);
+            }
+        } catch (\DomainException $exception) {
+            $data["success"] = false;
+            $data["error"] = $exception->getMessage();
+            $status = JsonResponse::HTTP_BAD_REQUEST;
+        } catch (\Exception $exception) {
+            $data["success"] = false;
+            $data["error"] = $exception->getMessage();
+            $status = JsonResponse::HTTP_INTERNAL_SERVER_ERROR;
+        }
+
+        return $this->json($data, $status);
+    }
 }
